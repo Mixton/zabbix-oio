@@ -7,6 +7,8 @@ These scripts use the default 'OPENIO' NS. You can modify it to fit your needs i
 
 This tamplate only discovers oio SDS services and track the scores. Waiting for 1704 so that it can list and get account metrics  
 
+To monitor oio-sds nodes you might want to use a template that gives you disks info like this one https://github.com/grundic/zabbix-disk-performance
+
 ## DEBIAN
 On each oio-sds zabbix agent hosts:
 ```
