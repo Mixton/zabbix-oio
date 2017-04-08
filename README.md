@@ -1,5 +1,7 @@
 # zabbix-oio
 
+These scripts use the default 'OPENIO' NS. You can modify it to fit your needs in 'userparameter_openio.conf' and 'zabbix-oiosds-discover.py'  
+
 ## DEBIAN
 ```
 wget https://github.com/Mixton/zabbix-oio/userparameter_openio.conf -O /etc/zabbix/zabbix_agentd.conf.d/userparameter_openio.conf  
@@ -8,7 +10,7 @@ chmod +x /usr/local/bin/zabbix-oiosds-discover.py
 systemctl restart zabbix-agent.service  
 ```
 
-import template  
+import template 'zbx_oiosds_template.xml' and add it to your host  
 
 ## CENTOS/RedHat
 ```
@@ -18,4 +20,4 @@ chmod +x /usr/local/bin/zabbix-oiosds-discover.py
 systemctl restart zabbix-agent.service  
 ```
 
-import template  
+import template 'zbx_oiosds_template.xml' and add it to your host 
