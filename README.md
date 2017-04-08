@@ -12,9 +12,9 @@ To monitor oio-sds nodes you might want to use a template that gives you disks i
 ## DEBIAN
 On each oio-sds zabbix agent hosts:
 ```
-wget https://github.com/Mixton/zabbix-oio/userparameter_openio.conf -O /etc/zabbix/zabbix_agentd.conf.d/userparameter_openio.conf  
+wget https://raw.githubusercontent.com/Mixton/zabbix-oio/master/userparameter_openio.conf -O /etc/zabbix/zabbix_agentd.conf.d/userparameter_openio.conf  
 apt-get install python-netifaces
-wget https://github.com/Mixton/zabbix-oio/zabbix-oiosds-discover.py -O /usr/local/bin/zabbix-oiosds-discover.py  
+wget https://raw.githubusercontent.com/Mixton/zabbix-oio/master/zabbix-oiosds-discover.py -O /usr/local/bin/zabbix-oiosds-discover.py  
 chmod +x /usr/local/bin/zabbix-oiosds-discover.py  
 systemctl restart zabbix-agent.service  
 ```
@@ -24,9 +24,9 @@ import template 'zbx_oiosds_template.xml' and add it to your host
 ## CENTOS/RedHat
 On each oio-sds zabbix agent hosts:
 ```
-wget https://github.com/Mixton/zabbix-oio/userparameter_openio.conf -O /etc/zabbix_agentd.conf.d/userparameter_openio.conf  
+wget https://raw.githubusercontent.com/Mixton/zabbix-oio/master/userparameter_openio.conf -O /etc/zabbix_agentd.conf.d/userparameter_openio.conf  
 yum install -y python-netifaces.x86_64
-wget https://github.com/Mixton/zabbix-oio/zabbix-oiosds-discover.py -O /usr/local/bin/zabbix-oiosds-discover.py  
+wget https://raw.githubusercontent.com/Mixton/zabbix-oio/master/zabbix-oiosds-discover.py -O /usr/local/bin/zabbix-oiosds-discover.py  
 chmod +x /usr/local/bin/zabbix-oiosds-discover.py  
 systemctl restart zabbix-agent.service  
 ```
