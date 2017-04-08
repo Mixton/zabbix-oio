@@ -9,7 +9,7 @@ import netifaces
 if __name__ == "__main__":
     #hostname = socket.gethostname()
     ifaces = netifaces.interfaces()
-    ifacesbanned = ('lo', 'bond0')
+    ifacesbanned = ('lo')
     ifaces = (iface for iface in ifaces if not any(ifacebanned in iface for ifacebanned in ifacesbanned))
     for iface in ifaces:
         addrs = netifaces.ifaddresses(iface)
