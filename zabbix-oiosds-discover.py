@@ -40,38 +40,37 @@ if __name__ == "__main__":
         service = args.servicename.split('-')[0]
         service_id = args.servicename.split('-')[1]
         url = "http://%s:%s/v3.0/%s/conscience/list?type=%s"%(hostname, PROXY_PORT, NS, service)
-        try:
-            r = requests.get(url, verify=False)
-        except Exception, e:
-            pass
+        cmd = "/usr/bin/curl -XGET %s"%url
+        cmd_args = shlex.split(cmd)
 
-        if r.status_code == 200:
+        try:
+            output,error = subprocess.Popen(cmd_args,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+        except Exception, e:
+            if args.getscore:
+                print(0)
+            elif args.getstatus:
+                print(False)
+        else:
+
+            output = json.loads(output)
 
             if args.getscore:
                 score = 0
-                for host in r.json():
+                for host in output:
                     if service_id in host['addr']:
                         score = host['score']
 
 
                 print(score)
 
-            if args.getstatus:
+            elif args.getstatus:
                 active = False
-                for host in r.json():
+                for host in output:
                     if service_id in host['addr']:
                         active = host['tags']['tag.up']
 
 
                 print(active)
-
-        else:
-
-            if args.getscore:
-                print(0)
-
-            if args.getstatus:
-                print(False)
 
     else:
 
@@ -79,13 +78,15 @@ if __name__ == "__main__":
 
         for service in services_list:
             url = "http://%s:%s/v3.0/%s/conscience/list?type=%s"%(hostname, PROXY_PORT, NS, service)
+            cmd = "/usr/bin/curl -XGET %s"%url
+            cmd_args = shlex.split(cmd)
             try:
-                r = requests.get(url, verify=False)
+                output,error = subprocess.Popen(cmd_args,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
             except Exception, e:
-                pass
-        
-            if r.status_code == 200:
-                for host in r.json():
+                print(e)
+            else: 
+                output = json.loads(output)
+                for host in output:
                     if hostname in host['addr']:
                         serv = "%s-%s"%(service, host['addr'])
                         services.append(serv)
