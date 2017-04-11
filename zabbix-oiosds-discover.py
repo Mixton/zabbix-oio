@@ -3,9 +3,7 @@ import os
 import subprocess
 import shlex
 import json
-import socket
 import netifaces
-import requests
 import argparse
 import textwrap
 
@@ -40,7 +38,8 @@ if __name__ == "__main__":
         service = args.servicename.split('-')[0]
         service_id = args.servicename.split('-')[1]
         url = "http://%s:%s/v3.0/%s/conscience/list?type=%s"%(hostname, PROXY_PORT, NS, service)
-        cmd = "/usr/bin/curl -XGET %s"%url
+        #cmd = "/usr/bin/curl -XGET %s"%url
+        cmd = "/usr/bin/wget -qO- %s"%url
         cmd_args = shlex.split(cmd)
 
         try:
@@ -52,7 +51,15 @@ if __name__ == "__main__":
                 print(False)
         else:
 
-            output = json.loads(output)
+            try:
+                output = json.loads(output)
+            except Exception, e:
+                if args.getscore:
+                    print(0)
+                    exit(1)
+                elif args.getstatus:
+                    print(False)
+                    exit(1)
 
             if args.getscore:
                 score = 0
@@ -78,14 +85,18 @@ if __name__ == "__main__":
 
         for service in services_list:
             url = "http://%s:%s/v3.0/%s/conscience/list?type=%s"%(hostname, PROXY_PORT, NS, service)
-            cmd = "/usr/bin/curl -XGET %s"%url
+            #cmd = "/usr/bin/curl -XGET %s"%url
+            cmd = "/usr/bin/wget -qO- %s"%url
             cmd_args = shlex.split(cmd)
             try:
                 output,error = subprocess.Popen(cmd_args,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
             except Exception, e:
                 print(e)
             else: 
-                output = json.loads(output)
+                try:
+                    output = json.loads(output)
+                except Exception, e:
+                    print(e)
                 for host in output:
                     if hostname in host['addr']:
                         serv = "%s-%s"%(service, host['addr'])
