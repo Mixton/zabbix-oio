@@ -7,7 +7,9 @@ These scripts use the default 'OPENIO' NS. You can modify it to fit your needs i
 
 This tamplate only discovers oio SDS services and tracks the scores. Waiting for the next stable release so that it can list and get account metrics  
 
-To monitor beanstalkd you can use this template: https://github.com/Mixton/zabbix-beanstalkd, it's the same install procedure as the zabbix-oio.
+It uses wget as it has a very small impact on the cpu load.
+
+To monitor beanstalkd you can use this template: https://github.com/Mixton/zabbix-beanstalkd, it's almost the same install procedure as the zabbix-oio.
 
 To monitor oio-sds nodes you might want to use a template that gives you disks info too. This one works well: https://github.com/grundic/zabbix-disk-performance
 
